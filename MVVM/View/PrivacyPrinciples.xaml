@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManager.MVVM.View.PrivacyPrinciples"
+             Title="PrivacyPrinciples">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+            <!--Title-->
+            <Label Text="Privacy Principles" FontSize="Large" FontAttributes="Bold" />
+
+            <!--Introduction-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="Introduction" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="Welcome to our TaskManager application. Your privacy is of utmost importance to us. This Privacy Principles page outlines how we handle your personal information and task data within our app. We are committed to protecting your data and ensuring transparency in our practices." />
+
+            <!--Information We Collect-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="Information We Collect" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="We collect information necessary for the effective operation of our TaskManager application. This includes personal data you provide and task-related data generated during your use of the app." />
+
+            <!--Personal Data-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="Personal Data" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="Personal data refers to any information that can identify you as an individual. This may include your name, email address, contact details, and any other information you provide during account creation or while using the app." />
+
+            <!--Task Data-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="Task Data" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="Task data includes information related to the tasks you create, manage, and complete within the app. This data may contain descriptions, deadlines, and other details relevant to your tasks." />
+
+            <!--How We Use Information-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="How We Use Information" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="We use the information we collect to enhance your experience with our TaskManager app. This includes personalizing your experience, improving app functionality, and providing customer support. Your task data is used to manage your tasks and to ensure that the app functions as intended." />
+
+            <!--Disclosure of Information-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="Disclosure of Information" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="We do not sell, trade, or otherwise transfer your personal information to outside parties without your consent. We may share information with trusted third parties who assist us in operating our app, conducting our business, or serving you, provided they agree to keep this information confidential." />
+
+            <!--Security Of Information-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="Security Of Information" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="We implement a variety of security measures to maintain the safety of your personal and task data. This includes encryption, access controls, and regular security audits to protect your information from unauthorized access, alteration, disclosure, or destruction." />
+
+            <!--Protection Of Data Rights-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="Protection Of Data Rights" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="You have the right to access, correct, or delete your personal data at any time. If you wish to exercise these rights or have any concerns about how your data is handled, please contact us through the information provided below." />
+
+            <!--Changes To Privacy Policy-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="Changes To Privacy Policy" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. Any changes will be communicated to you through the app or via email." />
+
+            <!--Contact Us-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="Contact Us" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="If you have any questions or concerns regarding our Privacy Principles or the way your data is handled, please contact us at task.planner@gmail.com or 0800 827 537." />
+
+            <!--References-->
+            <Label Text="" FontSize="Medium" FontAttributes="Bold" Margin="0, 10 ,0 ,0" />
+            <Label Text="References:" FontSize="Medium" FontAttributes="Bold" Margin="0, 10, 0, 0" />
+            <Label Text="New Zealand Privacy Act 2020" />
+            <Label Text="Office of the Privacy Commissioner New Zealand - Guidelines for Mobile Apps" />
+            <Label Text="CERT NZ - Information Security Guide for Businesses" />
+            <Label Text="Office of the Privacy Commissioner New Zealand - Your Privacy Rights" />
+            <Label Text="Ministry of Justice New Zealand - Privacy Law Changes" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0, 20, 0, 0">
+                <Button Text="Decline" Clicked="OnDeclineClicked" Margin="10" />
+                <Button Text="Accept" Clicked="OnAcceptClicked" Margin="10" />
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+    
+</ContentPage>
