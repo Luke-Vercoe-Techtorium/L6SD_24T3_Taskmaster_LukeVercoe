@@ -17,17 +17,19 @@ public class Database
 
     private async void InitializeTables()
     {
-        await _database.CreateTableAsync<CategoryModel>();
-        await _database.CreateTableAsync<TaskModel>();
+        await Task.WhenAll(
+            _database.CreateTableAsync<CategoryModel>(),
+            _database.CreateTableAsync<TaskModel>()
+        );
     }
 
-    public async Task<List<CategoryModel>> GetCategoriesAsync() => await _database.Table<CategoryModel>().ToListAsync();
-    public async Task<int> SaveCategoryAsync(CategoryModel category) => await _database.InsertAsync(category);
-    public async Task<int> UpdateCategoryAsync(CategoryModel category) => await _database.UpdateAsync(category);
-    public async Task<int> DeleteCategoryAsync(CategoryModel category) => await _database.DeleteAsync(category);
+    public Task<List<CategoryModel>> GetCategoriesAsync() => _database.Table<CategoryModel>().ToListAsync();
+    public Task<int> SaveCategoryAsync(CategoryModel category) => _database.InsertAsync(category);
+    public Task<int> UpdateCategoryAsync(CategoryModel category) => _database.UpdateAsync(category);
+    public Task<int> DeleteCategoryAsync(CategoryModel category) => _database.DeleteAsync(category);
 
-    public async Task<List<TaskModel>> GetTasksAsync() => await _database.Table<TaskModel>().ToListAsync();
-    public async Task<int> SaveTaskAsync(TaskModel task) => await _database.InsertAsync(task);
-    public async Task<int> UpdateTaskAsync(TaskModel task) => await _database.UpdateAsync(task);
-    public async Task<int> DeleteTaskAsync(TaskModel task) => await _database.DeleteAsync(task);
+    public Task<List<TaskModel>> GetTasksAsync() => _database.Table<TaskModel>().ToListAsync();
+    public Task<int> SaveTaskAsync(TaskModel task) => _database.InsertAsync(task);
+    public Task<int> UpdateTaskAsync(TaskModel task) => _database.UpdateAsync(task);
+    public Task<int> DeleteTaskAsync(TaskModel task) => _database.DeleteAsync(task);
 }
