@@ -7,7 +7,7 @@ namespace TaskManager.MVVM.View;
 
 public partial class NewTaskView : ContentPage
 {
-    private NewTaskViewModel _viewModel;
+    private readonly NewTaskViewModel _viewModel;
 
     public NewTaskView(Database database, ObservableCollection<CategoryModel> categories, ObservableCollection<TaskModel> tasks)
     {

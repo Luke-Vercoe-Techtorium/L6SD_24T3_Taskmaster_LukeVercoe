@@ -1,15 +1,13 @@
 ﻿using TaskManager.MVVM.View;
-using TaskManager.Services;
 
-namespace TaskManager
+namespace TaskManager;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public App(IServiceProvider serviceProvider)
     {
-        public App(IServiceProvider serviceProvider)
-        {
-            InitializeComponent();
+        InitializeComponent();
 
-            MainPage = new NavigationPage(serviceProvider.GetRequiredService<PrivacyPrinciples>());
-        }
+        MainPage = new NavigationPage(serviceProvider.GetRequiredService<PrivacyPrinciples>());
     }
 }

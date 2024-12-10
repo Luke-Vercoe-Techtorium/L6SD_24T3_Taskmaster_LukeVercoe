@@ -2,29 +2,28 @@
 using TaskManager.MVVM.View;
 using TaskManager.Services;
 
-namespace TaskManager
+namespace TaskManager;
+
+public static class MauiProgram
 {
-    public static class MauiProgram
+    public static MauiApp CreateMauiApp()
     {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+		builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddSingleton<Database>();
-            builder.Services.AddTransient<PrivacyPrinciples>();
+        builder.Services.AddSingleton<Database>();
+        builder.Services.AddTransient<PrivacyPrinciples>();
 
-            return builder.Build();
-        }
+        return builder.Build();
     }
 }

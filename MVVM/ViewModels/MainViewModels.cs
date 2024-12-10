@@ -3,77 +3,76 @@ using System.Collections.ObjectModel;
 using TaskManager.MVVM.Models;
 using TaskManager.Services;
 
-namespace TaskManager.MVVM.ViewModels
+namespace TaskManager.MVVM.ViewModels;
+
+[AddINotifyPropertyChangedInterface]
+public class MainViewModels
 {
-    [AddINotifyPropertyChangedInterface]
-    public class MainViewModels
+
+    public Database Database { get; set; }
+
+    public ObservableCollection<CategoryModel> Categories { get; set; }
+    public ObservableCollection<TaskModel> Tasks { get; set; }
+
+    public MainViewModels(Database database)
     {
+        Database = database;
 
-        public Database Database { get; set; }
+        Categories = [];
+        Tasks = [];
+        Tasks.CollectionChanged += Tasks_CollectionChanged;
 
-        public ObservableCollection<CategoryModel> Categories { get; set; }
-        public ObservableCollection<TaskModel> Tasks { get; set; }
+        LoadData();
+    }
 
-        public MainViewModels(Database database)
+
+    private void Tasks_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        UpdateData();
+    }
+
+    private async void LoadData()
+    {
+        var categoriesFromDb = await Database.GetCategoriesAsync();
+        foreach (var category in categoriesFromDb)
         {
-            Database = database;
-
-            Categories = [];
-            Tasks = [];
-            Tasks.CollectionChanged += Tasks_CollectionChanged;
-
-            LoadData();
+            Categories.Add(category);
         }
 
-
-        private void Tasks_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        var tasksFromDb = await Database.GetTasksAsync();
+        foreach (var task in tasksFromDb)
         {
-            UpdateData();
+            Tasks.Add(task);
         }
 
-        private async void LoadData()
+        UpdateData();
+    }
+
+    public void UpdateData()
+    {
+        foreach (var c in Categories)
         {
-            var categoriesFromDb = await Database.GetCategoriesAsync();
-            foreach (var category in categoriesFromDb)
-            {
-                Categories.Add(category);
-            }
+            var tasks = Tasks.Where(t => t.CategoryID == c.Id);
+            var completed = tasks.Where(t => t.Completed).Count();
+            var totalTasks = tasks.Count();
 
-            var tasksFromDb = await Database.GetTasksAsync();
-            foreach (var task in tasksFromDb)
-            {
-                Tasks.Add(task);
-            }
-
-            UpdateData();
+            c.Completed = completed;
+            c.PendingTasks = totalTasks - completed;
+            c.Percentage = totalTasks == 0 ? 0 : (float)completed / totalTasks;
         }
-
-        public void UpdateData()
+        foreach (var t in Tasks)
         {
-            foreach (var c in Categories)
-            {
-                var tasks = Tasks.Where(t => t.CategoryID == c.Id);
-                var completed = tasks.Where(t => t.Completed).Count();
-                var totalTasks = tasks.Count();
-
-                c.Completed = completed;
-                c.PendingTasks = totalTasks - completed;
-                c.Percentage = totalTasks == 0 ? 0 : (float)completed / totalTasks;
-            }
-            foreach (var t in Tasks)
-            {
-                var catColor = Categories.FirstOrDefault(c => c.Id == t.CategoryID)?.Color;
-                if (catColor is not null)
-                    t.TaskColor = catColor;
-            }
+            var catColor = Categories.FirstOrDefault(c => c.Id == t.CategoryID)?.Color;
+            if (catColor is not null)
+                t.TaskColor = catColor;
         }
+    }
 
-        public async Task DeleteTaskAsync(TaskModel task)
-        {
-            if (task == null) return;
-            await Database.DeleteTaskAsync(task);
-            Tasks.Remove(task);
-            UpdateData();
-        }
+    public async Task DeleteTaskAsync(TaskModel task)
+    {
+        if (task == null) return;
+        await Database.DeleteTaskAsync(task);
+        Tasks.Remove(task);
+        UpdateData();
     }
 }
