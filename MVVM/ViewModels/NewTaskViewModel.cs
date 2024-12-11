@@ -30,12 +30,9 @@ public class NewTaskViewModel(Database database, ObservableCollection<CategoryMo
 
     public async Task DeleteCategoryAsync(CategoryModel category)
     {
-        var tasksToDelete = Tasks.Where(t => t.CategoryID == category.Id).ToList();
+        var tasksToDelete = Tasks.Where(task => task.CategoryID == category.Id).ToList();
         foreach (var task in tasksToDelete)
-        {
             await DeleteTaskAsync(task);
-        }
-
         await database.DeleteCategoryAsync(category);
         Categories.Remove(category);
     }

@@ -35,36 +35,33 @@ public class MainViewModels
     {
         var categoriesFromDb = await Database.GetCategoriesAsync();
         foreach (var category in categoriesFromDb)
-        {
             Categories.Add(category);
-        }
 
         var tasksFromDb = await Database.GetTasksAsync();
         foreach (var task in tasksFromDb)
-        {
             Tasks.Add(task);
-        }
 
         UpdateData();
     }
 
     public void UpdateData()
     {
-        foreach (var c in Categories)
+        foreach (var category in Categories)
         {
-            var tasks = Tasks.Where(t => t.CategoryID == c.Id);
-            var completed = tasks.Where(t => t.Completed).Count();
+            var tasks = Tasks.Where(task => task.CategoryID == category.Id);
+            var completed = tasks.Where(task => task.Completed).Count();
             var totalTasks = tasks.Count();
 
-            c.Completed = completed;
-            c.PendingTasks = totalTasks - completed;
-            c.Percentage = totalTasks == 0 ? 0 : (float)completed / totalTasks;
+            category.Completed = completed;
+            category.PendingTasks = totalTasks - completed;
+            category.Percentage = totalTasks == 0 ? 0 : (float)completed / totalTasks;
         }
-        foreach (var t in Tasks)
+
+        foreach (var task in Tasks)
         {
-            var catColor = Categories.FirstOrDefault(c => c.Id == t.CategoryID)?.Color;
+            var catColor = Categories.FirstOrDefault(c => c.Id == task.CategoryID)?.Color;
             if (catColor is not null)
-                t.TaskColor = catColor;
+                task.TaskColor = catColor;
         }
     }
 
