@@ -9,19 +9,16 @@ namespace TaskManager.MVVM.ViewModels;
 [AddINotifyPropertyChangedInterface]
 public class MainViewModels
 {
-
     public Database Database { get; set; }
 
-    public ObservableCollection<CategoryModel> Categories { get; set; }
-    public ObservableCollection<TaskModel> Tasks { get; set; }
+    public ObservableCollection<CategoryModel> Categories { get; set; } = [];
+    public ObservableCollection<TaskModel> Tasks { get; set; } = [];
 
     public MainViewModels(Database database)
     {
         Database = database;
 
-        Categories = [];
         Categories.CollectionChanged += Categories_CollectionChanged;
-        Tasks = [];
         Tasks.CollectionChanged += Tasks_CollectionChanged;
 
         LoadData();
@@ -65,7 +62,7 @@ public class MainViewModels
 
         foreach (var task in Tasks)
         {
-            var catColor = Categories.FirstOrDefault(c => c.Id == task.CategoryID)?.Color;
+            var catColor = Categories.FirstOrDefault(category => category.Id == task.CategoryID)?.Color;
             if (catColor is not null)
                 task.TaskColor = catColor;
         }
@@ -73,7 +70,7 @@ public class MainViewModels
 
     public async Task DeleteTaskAsync(TaskModel task)
     {
-        if (task == null) return;
+        if (task is null) return;
         await Database.DeleteTaskAsync(task);
         Tasks.Remove(task);
         UpdateData();
