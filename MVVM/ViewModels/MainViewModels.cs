@@ -1,5 +1,6 @@
 ﻿using PropertyChanged;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using TaskManager.MVVM.Models;
 using TaskManager.Services;
 
@@ -19,14 +20,19 @@ public class MainViewModels
         Database = database;
 
         Categories = [];
+        Categories.CollectionChanged += Categories_CollectionChanged;
         Tasks = [];
         Tasks.CollectionChanged += Tasks_CollectionChanged;
 
         LoadData();
     }
 
+    private void Categories_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        UpdateData();
+    }
 
-    private void Tasks_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    private void Tasks_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         UpdateData();
     }
